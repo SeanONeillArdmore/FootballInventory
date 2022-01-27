@@ -1,2 +1,4 @@
-package com.footballinventory;public class FootballInventoryApllication {
+package com.footballinventory;
+
+public class FootballInventoryApllication {
 }
