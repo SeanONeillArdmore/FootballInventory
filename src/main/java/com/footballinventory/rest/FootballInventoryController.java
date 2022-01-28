@@ -1,4 +1,12 @@
 package com.footballinventory.rest;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(path = "/inventory-api")
 public class FootballInventoryController {
+
+
+
 }
