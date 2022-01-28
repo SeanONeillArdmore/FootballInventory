@@ -1,20 +1,15 @@
 package com.footballinventory.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "inventory_tbl")
-@Getter
-@Setter
-@EqualsAndHashCode(of = "id")
-@ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Inventory {
 
-
+    private String team;
+    private String size;
+    private String color;
 }
