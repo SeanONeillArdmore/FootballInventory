@@ -3,6 +3,7 @@ package com.footballinventory.rest;
 import com.footballinventory.dao.JerseyRepository;
 import com.footballinventory.entity.JerseyEntity;
 import com.footballinventory.model.Jersey;
+import com.footballinventory.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,12 @@ import java.util.stream.Collectors;
 public class FootballInventoryController {
 
     private JerseyRepository jerseyRepository;
+    private InventoryService inventoryService;
 
     @Autowired
-    public FootballInventoryController(JerseyRepository jerseyRepository) {
+    public FootballInventoryController(JerseyRepository jerseyRepository, InventoryService inventoryService) {
         this.jerseyRepository = jerseyRepository;
+        this.inventoryService = inventoryService;
     }
 
     @RequestMapping(value = "/jersey", method = RequestMethod.POST)
