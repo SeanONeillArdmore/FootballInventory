@@ -6,8 +6,9 @@ import java.util.Collection;
 
 public interface InventoryService {
 
-    void createJersey(Jersey jersey);
+    Jersey addJersey(Jersey jersey);
     void updateJersey(String id, Jersey jersey);
     void deleteJersey(String id);
-    Collection<Jersey> getProducts();
+    Jersey findJerseyByTeam(String id);
+    Collection<Jersey> findAllJerseys();
 }

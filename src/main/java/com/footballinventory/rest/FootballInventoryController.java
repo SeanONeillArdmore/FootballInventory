@@ -28,15 +28,8 @@ public class FootballInventoryController {
 
     @RequestMapping(value = "/jersey", method = RequestMethod.POST)
     public ResponseEntity addInventory(@RequestBody Jersey jersey) {
-
         try {
-            JerseyEntity jerseyEntity = new JerseyEntity();
-            jerseyEntity.setColor(jersey.getColor());
-            jerseyEntity.setSize(jersey.getSize());
-            jerseyEntity.setTeam(jersey.getTeam());
-            JerseyEntity created = jerseyRepository.save(jerseyEntity);
-            jersey.setJerseyId(created.getId());
-            return new ResponseEntity<>(jersey, HttpStatus.OK);
+            return new ResponseEntity<>(inventoryService.addJersey(jersey), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
