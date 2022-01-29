@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Inventory {
 
+    private String inventoryId;
     private String team;
     private String size;
     private String color;

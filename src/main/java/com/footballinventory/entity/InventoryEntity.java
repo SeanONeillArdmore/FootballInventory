@@ -24,32 +24,16 @@ public class InventoryEntity {
     @Column(name = "id_col")
     private String id;
 
-    @Id
-    @Column(name = "id_team")
+    @Column(name = "team_col")
     private String team;
 
-    @Id
-    @Column(name = "id_size")
+    @Column(name = "size_col")
     private String size;
 
-    @Id
-    @Column(name = "id_color")
+    @Column(name = "color_col")
     private String color;
 
     public InventoryEntity() {
         this.id = UUID.randomUUID().toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        InventoryEntity that = (InventoryEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(team, that.team) && Objects.equals(size, that.size) && Objects.equals(color, that.color);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, team, size, color);
     }
 }
