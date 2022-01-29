@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface JerseyRepository extends JpaRepository<JerseyEntity, Integer> {
+public interface JerseyRepository extends JpaRepository<JerseyEntity, String> {
     List<JerseyEntity> findByTeam(String team);
 }

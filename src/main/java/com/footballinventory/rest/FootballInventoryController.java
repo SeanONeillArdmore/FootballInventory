@@ -42,7 +42,6 @@ public class FootballInventoryController {
 
     @RequestMapping(value = "/jersey", method = RequestMethod.GET)
     public ResponseEntity getInventory(@RequestParam(value = "by_team", required = false) String teamFilter) {
-
         try {
             List<JerseyEntity> jerseyEntities;
             if (StringUtils.isEmpty(teamFilter)) {
@@ -54,6 +53,33 @@ public class FootballInventoryController {
                     i -> new Jersey(i.getId(), i.getTeam(), i.getSize(), i.getColor())
             ).collect(Collectors.toList());
             return new ResponseEntity<>(books, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @RequestMapping(value = "/jersey/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteInventory(@PathVariable String id) {
+        try {
+            jerseyRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @RequestMapping(value = "/jersey", method = RequestMethod.PUT)
+    public ResponseEntity updateInventory(@RequestBody Jersey jersey) {
+        try {
+            JerseyEntity jerseyEntity = new JerseyEntity();
+            jerseyEntity.setId(jersey.getJerseyId());
+            jerseyEntity.setColor(jersey.getColor());
+            jerseyEntity.setTeam(jersey.getTeam());
+            jerseyEntity.setSize(jersey.getJerseyId());
+            jerseyRepository.save(jerseyEntity);
+            return new ResponseEntity<>(jersey, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
