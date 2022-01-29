@@ -62,7 +62,8 @@ public class FootballInventoryController {
     @RequestMapping(value = "/jersey/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteInventory(@PathVariable String id) {
         try {
-            jerseyRepository.deleteById(id);
+            JerseyEntity jerseyEntity = jerseyRepository.getOne(id);
+            jerseyRepository.delete(jerseyEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
