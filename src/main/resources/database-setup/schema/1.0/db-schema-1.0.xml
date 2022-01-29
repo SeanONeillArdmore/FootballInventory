@@ -6,7 +6,7 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
     <changeSet author="Sean O'Neill" id="changelog-2.0">
-        <createTable tableName="inventory_tbl">
+        <createTable tableName="jersey_tbl">
             <column name="id_col" type="VARCHAR(255)">
                 <constraints nullable="false" primaryKey="true" />
             </column>

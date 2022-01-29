@@ -9,16 +9,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "inventory_tbl")
+@Table(name = "jersey_tbl")
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
 @ToString
-public class InventoryEntity {
+public class JerseyEntity {
 
     @Id
     @Column(name = "id_col")
@@ -33,7 +32,7 @@ public class InventoryEntity {
     @Column(name = "color_col")
     private String color;
 
-    public InventoryEntity() {
+    public JerseyEntity() {
         this.id = UUID.randomUUID().toString();
     }
 }

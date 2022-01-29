@@ -21,5 +21,5 @@ logging:
     console: "%d %-5level %logger : %msg%n"
     file: "%d %-5level [%thread] %logger : %msg%n"
   level:
-    com.mckinleyit.proto1: DEBUG
+    com.footballinventory: DEBUG
     org.hibernate: INFO

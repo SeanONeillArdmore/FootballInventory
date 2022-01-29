@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Inventory {
+public class Jersey {
 
-    private String inventoryId;
+    private String jerseyId;
     private String team;
     private String size;
     private String color;
