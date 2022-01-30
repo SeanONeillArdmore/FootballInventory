@@ -37,9 +37,9 @@ public class ApplicationTest {
         jersey.setTeam("NY Cosmos");
         jersey.setSize("XS");
         jersey.setColor("White");
-        jerseyRepository.save(jersey);
+        JerseyEntity saved = jerseyRepository.save(jersey);
 
-        mvc.perform(get("/football-api/jersey")
+        mvc.perform(get("/football-api/jersey/" + saved.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[2].team", is("NY Cosmos")))

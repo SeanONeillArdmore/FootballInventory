@@ -2,11 +2,13 @@ package com.footballinventory.service;
 
 import com.footballinventory.dao.JerseyRepository;
 import com.footballinventory.entity.JerseyEntity;
+import com.footballinventory.exception.JerseyNotFoundException;
 import com.footballinventory.model.Jersey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
 
     @Override
     public void deleteJersey(String id) {
-        JerseyEntity jerseyEntity = jerseyRepository.getOne(id);
+        findJerseyById(id);
         jerseyRepository.deleteById(id);
     }
 
@@ -53,11 +55,12 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
     }
 
     @Override
-    public List<Jersey> findJerseyByTeam(String teamFilter) {
-        List<JerseyEntity> jerseyEntities = jerseyRepository.findByTeam(teamFilter);
-        List<Jersey> jerseys = jerseyEntities.stream().map(
-                i -> new Jersey(i.getId(), i.getTeam(), i.getSize(), i.getColor())
-        ).collect(Collectors.toList());
-        return jerseys;
+    public Jersey findJerseyById(String id) {
+        Optional<JerseyEntity> optional = jerseyRepository.findById(id);
+        if (optional.isEmpty()){
+            throw  new JerseyNotFoundException("Jersey Not found : " + id);
+        }
+        JerseyEntity jerseyEntity = optional.get();
+        return new Jersey(jerseyEntity.getId(), jerseyEntity.getTeam(), jerseyEntity.getSize(), jerseyEntity.getColor());
     }
 }

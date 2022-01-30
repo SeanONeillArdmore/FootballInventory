@@ -9,6 +9,6 @@ public interface FootballInventoryService {
     Jersey addJersey(Jersey jersey);
     Jersey updateJersey(String id, Jersey jersey);
     void deleteJersey(String id);
-    List<Jersey> findJerseyByTeam(String id);
+    Jersey findJerseyById(String id);
     List<Jersey> findAllJerseys();
 }

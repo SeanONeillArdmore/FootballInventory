@@ -1,7 +1,5 @@
 
 spring:
-  liquibase:
-    change-log: "classpath:database-setup/db-change-log.xml"
   jpa:
     show-sql: ${SHOW_SQL:false}
     hibernate:
