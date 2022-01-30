@@ -1,9 +1,9 @@
 package com.footballinventory.service;
 
 import com.footballinventory.dao.JerseyRepository;
-import com.footballinventory.entity.JerseyEntity;
+import com.footballinventory.entity.Jersey;
 import com.footballinventory.exception.JerseyNotFoundException;
-import com.footballinventory.model.Jersey;
+import com.footballinventory.model.JerseyDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,25 +18,26 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
     private final JerseyRepository jerseyRepository;
 
     @Override
-    public Jersey addJersey(Jersey jersey) {
-        JerseyEntity jerseyEntity = new JerseyEntity();
-        jerseyEntity.setColor(jersey.getColor());
-        jerseyEntity.setSize(jersey.getSize());
-        jerseyEntity.setTeam(jersey.getTeam());
-        JerseyEntity created = jerseyRepository.save(jerseyEntity);
-        jersey.setJerseyId(created.getId());
-        return jersey;
+    public JerseyDTO addJersey(JerseyDTO jerseyDTO) {
+        Jersey jerseyEntity = new Jersey();
+        jerseyEntity.setColor(jerseyDTO.getColor());
+        jerseyEntity.setSize(jerseyDTO.getSize());
+        jerseyEntity.setTeam(jerseyDTO.getTeam());
+        Jersey created = jerseyRepository.save(jerseyEntity);
+        jerseyDTO.setJerseyId(created.getId());
+        return jerseyDTO;
     }
 
     @Override
-    public Jersey updateJersey(String id, Jersey jersey) {
-        JerseyEntity jerseyEntity = jerseyRepository.getOne(id);
-        jerseyEntity.setId(jersey.getJerseyId());
-        jerseyEntity.setColor(jersey.getColor());
-        jerseyEntity.setTeam(jersey.getTeam());
-        jerseyEntity.setSize(jersey.getJerseyId());
+    public JerseyDTO updateJersey(String id, JerseyDTO jerseyDTO) {
+        findJerseyById(id);
+        Jersey jerseyEntity = new Jersey();
+        jerseyEntity.setId(id);
+        jerseyEntity.setColor(jerseyDTO.getColor());
+        jerseyEntity.setTeam(jerseyDTO.getTeam());
+        jerseyEntity.setSize(jerseyDTO.getSize());
         jerseyRepository.save(jerseyEntity);
-        return jersey;
+        return jerseyDTO;
     }
 
     @Override
@@ -46,21 +47,21 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
     }
 
     @Override
-    public List<Jersey> findAllJerseys() {
-        List<JerseyEntity> jerseyEntities = jerseyRepository.findAll();
-        List<Jersey> jerseys = jerseyEntities.stream().map(
-                i -> new Jersey(i.getId(), i.getTeam(), i.getSize(), i.getColor())
+    public List<JerseyDTO> findAllJerseys() {
+        List<Jersey> jerseyEntities = jerseyRepository.findAll();
+        List<JerseyDTO> jerseyDTOS = jerseyEntities.stream().map(
+                i -> new JerseyDTO(i.getId(), i.getTeam(), i.getSize(), i.getColor())
         ).collect(Collectors.toList());
-        return jerseys;
+        return jerseyDTOS;
     }
 
     @Override
-    public Jersey findJerseyById(String id) {
-        Optional<JerseyEntity> optional = jerseyRepository.findById(id);
+    public JerseyDTO findJerseyById(String id) {
+        Optional<Jersey> optional = jerseyRepository.findById(id);
         if (optional.isEmpty()){
             throw  new JerseyNotFoundException("Jersey Not found : " + id);
         }
-        JerseyEntity jerseyEntity = optional.get();
-        return new Jersey(jerseyEntity.getId(), jerseyEntity.getTeam(), jerseyEntity.getSize(), jerseyEntity.getColor());
+        Jersey jersey = optional.get();
+        return new JerseyDTO(jersey.getId(), jersey.getTeam(), jersey.getSize(), jersey.getColor());
     }
 }

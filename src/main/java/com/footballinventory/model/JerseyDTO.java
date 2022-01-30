@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Jersey {
+public class JerseyDTO {
 
     @ApiModelProperty(notes = "Id",name="id",required=true,value="Jersey id")
     private String jerseyId;

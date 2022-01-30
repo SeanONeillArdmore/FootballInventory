@@ -3,7 +3,7 @@ spring:
   jpa:
     show-sql: ${SHOW_SQL:false}
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming_strategy: org.hibernate.cfg.EJB3NamingStrategy
   datasource:
     url: ${DB_URL:jdbc:hsqldb:mem:mydb}

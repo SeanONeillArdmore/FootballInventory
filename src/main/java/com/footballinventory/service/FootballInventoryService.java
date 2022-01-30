@@ -1,14 +1,14 @@
 package com.footballinventory.service;
 
-import com.footballinventory.model.Jersey;
+import com.footballinventory.model.JerseyDTO;
 
 import java.util.List;
 
 public interface FootballInventoryService {
 
-    Jersey addJersey(Jersey jersey);
-    Jersey updateJersey(String id, Jersey jersey);
+    JerseyDTO addJersey(JerseyDTO jerseyDTO);
+    JerseyDTO updateJersey(String id, JerseyDTO jerseyDTO);
     void deleteJersey(String id);
-    Jersey findJerseyById(String id);
-    List<Jersey> findAllJerseys();
+    JerseyDTO findJerseyById(String id);
+    List<JerseyDTO> findAllJerseys();
 }

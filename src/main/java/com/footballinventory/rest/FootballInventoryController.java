@@ -1,6 +1,6 @@
 package com.footballinventory.rest;
 
-import com.footballinventory.model.Jersey;
+import com.footballinventory.model.JerseyDTO;
 import com.footballinventory.service.FootballInventoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,8 +21,8 @@ public class FootballInventoryController {
 
     @ApiOperation(value = "Add a Jersey to the Inventory")
     @RequestMapping(value = "/jersey", method = RequestMethod.POST)
-    public ResponseEntity addInventory(@RequestBody Jersey jersey) {
-        return new ResponseEntity<>(inventoryService.addJersey(jersey), HttpStatus.OK);
+    public ResponseEntity addInventory(@RequestBody JerseyDTO jerseyDTO) {
+        return new ResponseEntity<>(inventoryService.addJersey(jerseyDTO), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Get All Jerseys from Inventory")
@@ -46,7 +46,7 @@ public class FootballInventoryController {
 
     @ApiOperation(value = "Update a Jersey in the Inventory")
     @RequestMapping(value = "/jersey/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updateInventory(@RequestBody Jersey jersey, @PathVariable String id) {
-        return new ResponseEntity<>(inventoryService.updateJersey(id, jersey), HttpStatus.OK);
+    public ResponseEntity updateInventory(@RequestBody JerseyDTO jerseyDTO, @PathVariable String id) {
+        return new ResponseEntity<>(inventoryService.updateJersey(id, jerseyDTO), HttpStatus.OK);
     }
 }
