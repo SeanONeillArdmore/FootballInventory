@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class FootballFootballInventoryServiceImpl implements FootballInventoryService {
 
-    private JerseyRepository jerseyRepository;
+    private final JerseyRepository jerseyRepository;
 
     @Override
     public Jersey addJersey(Jersey jersey) {
@@ -40,7 +40,7 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
     @Override
     public void deleteJersey(String id) {
         JerseyEntity jerseyEntity = jerseyRepository.getOne(id);
-        jerseyRepository.delete(jerseyEntity);
+        jerseyRepository.deleteById(id);
     }
 
     @Override

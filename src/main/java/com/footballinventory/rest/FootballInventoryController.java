@@ -3,6 +3,7 @@ package com.footballinventory.rest;
 import com.footballinventory.model.Jersey;
 import com.footballinventory.service.FootballInventoryService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 @RequestMapping(path = "/football-api")
 public class FootballInventoryController {
@@ -22,7 +24,7 @@ public class FootballInventoryController {
         try {
             return new ResponseEntity<>(inventoryService.addJersey(jersey), HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("message", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -38,7 +40,7 @@ public class FootballInventoryController {
             }
             return new ResponseEntity<>(jerseys, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("message", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -49,7 +51,7 @@ public class FootballInventoryController {
             inventoryService.deleteJersey(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("message", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -59,7 +61,7 @@ public class FootballInventoryController {
         try {
             return new ResponseEntity<>(inventoryService.updateJersey(id, jersey), HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("message", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
