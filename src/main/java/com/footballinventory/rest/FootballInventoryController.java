@@ -1,30 +1,21 @@
 package com.footballinventory.rest;
 
-import com.footballinventory.dao.JerseyRepository;
-import com.footballinventory.entity.JerseyEntity;
 import com.footballinventory.model.Jersey;
-import com.footballinventory.service.InventoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.footballinventory.service.FootballInventoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/football-api")
 public class FootballInventoryController {
 
-    private JerseyRepository jerseyRepository;
-    private InventoryService inventoryService;
-
-    @Autowired
-    public FootballInventoryController(JerseyRepository jerseyRepository, InventoryService inventoryService) {
-        this.jerseyRepository = jerseyRepository;
-        this.inventoryService = inventoryService;
-    }
+    private final FootballInventoryService inventoryService;
 
     @RequestMapping(value = "/jersey", method = RequestMethod.POST)
     public ResponseEntity addInventory(@RequestBody Jersey jersey) {
@@ -39,16 +30,13 @@ public class FootballInventoryController {
     @RequestMapping(value = "/jersey", method = RequestMethod.GET)
     public ResponseEntity getInventory(@RequestParam(value = "by_team", required = false) String teamFilter) {
         try {
-            List<JerseyEntity> jerseyEntities;
+            List<Jersey> jerseys;
             if (StringUtils.isEmpty(teamFilter)) {
-                jerseyEntities = jerseyRepository.findAll();
+                jerseys = inventoryService.findAllJerseys();
             } else {
-                jerseyEntities = jerseyRepository.findByTeam(teamFilter);
+                jerseys = inventoryService.findJerseyByTeam(teamFilter);
             }
-            List<Jersey> books = jerseyEntities.stream().map(
-                    i -> new Jersey(i.getId(), i.getTeam(), i.getSize(), i.getColor())
-            ).collect(Collectors.toList());
-            return new ResponseEntity<>(books, HttpStatus.OK);
+            return new ResponseEntity<>(jerseys, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -58,8 +46,7 @@ public class FootballInventoryController {
     @RequestMapping(value = "/jersey/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteInventory(@PathVariable String id) {
         try {
-            JerseyEntity jerseyEntity = jerseyRepository.getOne(id);
-            jerseyRepository.delete(jerseyEntity);
+            inventoryService.deleteJersey(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,16 +54,10 @@ public class FootballInventoryController {
         }
     }
 
-    @RequestMapping(value = "/jersey", method = RequestMethod.PUT)
-    public ResponseEntity updateInventory(@RequestBody Jersey jersey) {
+    @RequestMapping(value = "/jersey/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateInventory(@RequestBody Jersey jersey, @PathVariable String id) {
         try {
-            JerseyEntity jerseyEntity = new JerseyEntity();
-            jerseyEntity.setId(jersey.getJerseyId());
-            jerseyEntity.setColor(jersey.getColor());
-            jerseyEntity.setTeam(jersey.getTeam());
-            jerseyEntity.setSize(jersey.getJerseyId());
-            jerseyRepository.save(jerseyEntity);
-            return new ResponseEntity<>(jersey, HttpStatus.OK);
+            return new ResponseEntity<>(inventoryService.updateJersey(id, jersey), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
