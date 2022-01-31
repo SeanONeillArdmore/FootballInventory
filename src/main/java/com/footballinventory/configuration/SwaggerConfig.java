@@ -27,11 +27,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "My REST API",
-                "Some custom description of API.",
-                "API TOS",
+                "Football Shop Inventory API",
+                "Simple Inventory app for a Football shop to track Jerseys in stock.",
+                "V1",
                 "Terms of service",
-                new Contact("John Doe", "www.example.com", "myeaddress@company.com"),
+                new Contact("Sean O'Neill", "www.footy.ie", "seans@footy.ie"),
                 "License of API", "API license URL", Collections.emptyList());
     }
 }

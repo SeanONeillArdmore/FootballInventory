@@ -6,10 +6,10 @@ Api has endpoints for GET/POST/PUT/DELETE
 Start Application in intelij defaults to H2 in memory DB. Exposed on port 8080
 
 ##  Architecture
-Microservice Architecture
-Using Spring Boot 
-Rest Architecture
+Microservice Architecture using Rest 
+Using Spring Boot
 
+DAO/DTO/Service/Controller
 
 ## Swagger
 http://localhost:8080/swagger-ui/#/football-inventory-controller
