@@ -1,6 +1,6 @@
 # Football Inventory Api
-Simple Inventory app for a Football shop to track Jerseys in stock 
-Api has endpoints for GET/POST/PUT/DELETE 
+Simple Inventory app for a Football Shop to track Jerseys in stock 
+the Application has endpoints for GET/POST/PUT/DELETE 
 
 ## Getting started
 * git clone https://github.com/SeanONeillArdmore/FootballInventory.git

@@ -2,8 +2,8 @@ package com.footballinventory.rest;
 
 import com.footballinventory.model.JerseyDTO;
 import com.footballinventory.service.FootballInventoryService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Slf4j
-@Api(value = "Football Jersey Inventory API")
+@Tag(name = "Football Inventory API", description = "Football Shop Jersey stock tracker")
 @RestController
 @RequestMapping(path = "/football-api")
 public class FootballInventoryController {

@@ -21,17 +21,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.footballinventory"))
                 .paths(PathSelectors.any())
-                .build()
-                .apiInfo(apiInfo());
-    }
-
-    private ApiInfo apiInfo() {
-        return new ApiInfo(
-                "Football Shop Inventory API",
-                "Simple Inventory app for a Football shop to track Jerseys in stock.",
-                "V1",
-                "Terms of service",
-                new Contact("Sean O'Neill", "www.footy.ie", "seans@footy.ie"),
-                "License of API", "API license URL", Collections.emptyList());
+                .build();
+             //   .apiInfo(apiInfo());
     }
 }
