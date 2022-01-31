@@ -19,6 +19,8 @@ to the JPA through a DAO object.
 ## Get All Jerseys
 curl -X GET "http://localhost:8080/football-api/jersey" -H "accept: */*"
 
+<img width="1440" alt="Screenshot 2022-01-31 at 17 04 04" src="https://user-images.githubusercontent.com/98542188/151843278-2e692616-7275-4e29-bc74-fedba94dcce1.png">
+
 ## Get Jersey based on specified Id
 curl -X GET "http://localhost:8080/football-api/jersey/2dd39629-e1bd-4777-ba08-a1f124bde93a" -H "accept: */*"
 
