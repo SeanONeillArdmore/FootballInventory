@@ -1,63 +1,52 @@
 package com.footballinventory.rest;
 
-import com.footballinventory.dao.InventoryRepository;
-import com.footballinventory.entity.InventoryEntity;
-import com.footballinventory.model.Inventory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.footballinventory.model.JerseyDTO;
+import com.footballinventory.service.FootballInventoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+@RequiredArgsConstructor
+@Slf4j
+@Api(value = "Football Jersey Inventory API")
 @RestController
 @RequestMapping(path = "/football-api")
 public class FootballInventoryController {
 
-    private InventoryRepository inventoryRepository;
+    private final FootballInventoryService inventoryService;
 
-    @Autowired
-    public FootballInventoryController(InventoryRepository inventoryRepository) {
-        this.inventoryRepository = inventoryRepository;
+    @ApiOperation(value = "Add a Jersey to the Inventory")
+    @RequestMapping(value = "/jersey", method = RequestMethod.POST)
+    public ResponseEntity addInventory(@RequestBody JerseyDTO jerseyDTO) {
+        return new ResponseEntity<>(inventoryService.addJersey(jerseyDTO), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/inventory", method = RequestMethod.POST)
-    public ResponseEntity addInventory(@RequestBody Inventory inventory) {
-
-        try {
-            InventoryEntity inventoryEntity = new InventoryEntity();
-            inventoryEntity.setColor(inventory.getColor());
-            inventoryEntity.setSize(inventory.getSize());
-            inventoryEntity.setTeam(inventory.getTeam());
-            InventoryEntity created = inventoryRepository.save(inventoryEntity);
-            inventory.setInventoryId(created.getId());
-            return new ResponseEntity<>(inventory, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @ApiOperation(value = "Get All Jerseys from Inventory")
+    @RequestMapping(value = "/jersey", method = RequestMethod.GET)
+    public ResponseEntity getInventory(){
+        return new ResponseEntity<>(inventoryService.findAllJerseys(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/inventory", method = RequestMethod.GET)
-    public ResponseEntity getInventory(@RequestParam(value = "by_team", required = false) String teamFilter) {
-
-        try {
-            List<InventoryEntity> inventoryEntities;
-            if (StringUtils.isEmpty(teamFilter)) {
-                inventoryEntities = inventoryRepository.findAll();
-            } else {
-                inventoryEntities = inventoryRepository.findByTeam(teamFilter);
-            }
-            List<Inventory> books = inventoryEntities.stream().map(
-                    i -> new Inventory(i.getId(), i.getTeam(), i.getSize(), i.getColor())
-            ).collect(Collectors.toList());
-            return new ResponseEntity<>(books, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @ApiOperation(value = "Get a specific Jersey from Inventory based on id")
+    @RequestMapping(value = "/jersey/{id}", method = RequestMethod.GET)
+    public ResponseEntity getJersey(@PathVariable String id){
+        return new ResponseEntity<>(inventoryService.findJerseyById(id), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Delete a Jersey from Inventory")
+    @RequestMapping(value = "/jersey/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteInventory(@PathVariable String id) {
+        inventoryService.deleteJersey(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Update a Jersey in the Inventory")
+    @RequestMapping(value = "/jersey/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateInventory(@RequestBody JerseyDTO jerseyDTO, @PathVariable String id) {
+        return new ResponseEntity<>(inventoryService.updateJersey(id, jerseyDTO), HttpStatus.OK);
+    }
 }
