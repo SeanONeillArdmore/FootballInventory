@@ -4,8 +4,10 @@ the Application has endpoints for GET/POST/PUT/DELETE
 
 ## Getting started
 * git clone https://github.com/SeanONeillArdmore/FootballInventory.git
-* run class FootballInventoryApplication in your IDE
+* from command line execute: `mvn clean package` 
 * navigate to http://localhost:8080/swagger-ui/
+
+## Docker alternative
 
 ##  Architecture
 A Microservice architecture with REST APIs.
