@@ -19,17 +19,34 @@ to the JPA through a DAO object.
 ## Get All Jerseys
 curl -X GET "http://localhost:8080/football-api/jersey" -H "accept: */*"
 
+
+<img width="1440" alt="Screenshot 2022-01-31 at 17 04 04" src="https://user-images.githubusercontent.com/98542188/151843278-2e692616-7275-4e29-bc74-fedba94dcce1.png">
+
 ## Get Jersey based on specified Id
+
 curl -X GET "http://localhost:8080/football-api/jersey/2dd39629-e1bd-4777-ba08-a1f124bde93a" -H "accept: */*"
+
+![Screenshot 2022-01-31 at 17 47 39](https://user-images.githubusercontent.com/98542188/151845902-0491849e-7f8b-4f11-8039-7befd116ec5a.png)
+
 
 ## Delete Jersey 
 curl -X DELETE "http://localhost:8080/football-api/jersey/2dd39629-e1bd-4777-ba08-a1f124bde93a" -H "accept: */*"
 
-## Add a Jersey:
+
+![Screenshot 2022-01-31 at 17 46 35](https://user-images.githubusercontent.com/98542188/151845648-dedc626f-3967-4117-a4d2-8e96faca1190.png)
+
+
+## Post a Jersey:
 curl -X POST "http://localhost:8080/football-api/jersey" -H "accept: */*" -H "Content-Type: application/json" -d "{\"color\":\"Blue\",\"jerseyId\":\"\",\"size\":\"XL\",\"team\":\"Chelsea\"}"
+
+
+<img width="1440" alt="Screenshot 2022-01-31 at 17 31 44" src="https://user-images.githubusercontent.com/98542188/151845272-639a7d62-7e5d-449f-b886-e723f8988b72.png">
+
 
 ## Update a Jersey
 curl -X PUT "http://localhost:8080/football-api/jersey/8d752c07-b5c7-485b-a035-e104f7efa2bb" -H "accept: */*" -H "Content-Type: application/json" -d "{\"color\":\"White\",\"jerseyId\":\"\",\"size\":\"XS\",\"team\":\"Spurs\"}"
 
+
+![Screenshot 2022-01-31 at 17 45 38](https://user-images.githubusercontent.com/98542188/151845511-bb04a643-f8e9-4c86-a9ed-953681e29e34.png)
 
 
