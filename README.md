@@ -14,22 +14,22 @@ A Spring Boot application with a Rest Controller which communicates with
 the persistence layer using a service implementation which in turn communicates 
 to the JPA through a DAO object.
 
-## Endpoints 
+## Endpoints  using curl
 
 ## Get All Jerseys
-
 curl -X GET "http://localhost:8080/football-api/jersey" -H "accept: */*"
 
-![img.png](img.png)
-
+## Get Jersey based on specified Id
+curl -X GET "http://localhost:8080/football-api/jersey/2dd39629-e1bd-4777-ba08-a1f124bde93a" -H "accept: */*"
 
 ## Delete Jersey 
-http://localhost:8080/football-api/jersey/{1977007}
+curl -X DELETE "http://localhost:8080/football-api/jersey/2dd39629-e1bd-4777-ba08-a1f124bde93a" -H "accept: */*"
 
 ## Add a Jersey:
-
+curl -X POST "http://localhost:8080/football-api/jersey" -H "accept: */*" -H "Content-Type: application/json" -d "{\"color\":\"Blue\",\"jerseyId\":\"\",\"size\":\"XL\",\"team\":\"Chelsea\"}"
 
 ## Update a Jersey
+curl -X PUT "http://localhost:8080/football-api/jersey/8d752c07-b5c7-485b-a035-e104f7efa2bb" -H "accept: */*" -H "Content-Type: application/json" -d "{\"color\":\"White\",\"jerseyId\":\"\",\"size\":\"XS\",\"team\":\"Spurs\"}"
 
 
 
