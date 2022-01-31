@@ -22,6 +22,5 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.footballinventory"))
                 .paths(PathSelectors.any())
                 .build();
-             //   .apiInfo(apiInfo());
     }
 }
