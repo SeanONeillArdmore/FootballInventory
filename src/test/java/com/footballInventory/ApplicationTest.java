@@ -1,8 +1,10 @@
 package com.footballInventory;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.footballinventory.FootballInventoryApplication;
 import com.footballinventory.dao.JerseyRepository;
 import com.footballinventory.entity.Jersey;
+import com.footballinventory.model.JerseyDTO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,8 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,7 +42,7 @@ public class ApplicationTest {
         jersey.setColor("White");
         Jersey saved = jerseyRepository.save(jersey);
 
-        // Add Jersey
+        // Get Added Jersey
         mvc.perform(get("/football-api/jersey/" + saved.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -58,7 +60,36 @@ public class ApplicationTest {
                 .andExpect(status().isNotFound());
     }
 
-    // update jersey
-    // add one
-    // update // retreiev and check its updated
+    @Test
+    public void test_retrieve_update_record() throws Exception {
+        //Add
+        Jersey jersey = new Jersey();
+        jersey.setId(UUID.randomUUID().toString());
+        jersey.setTeam("Everton");
+        jersey.setSize("XL");
+        jersey.setColor("Blue");
+        Jersey saved = jerseyRepository.save(jersey);
+
+        JerseyDTO jerseyDTO = new JerseyDTO();
+        jerseyDTO.setTeam("Spurs");
+        jerseyDTO.setSize("L");
+        jerseyDTO.setColor("White");
+
+        mvc.perform(put("/football-api/jersey/" + saved.getId()).content(asJsonString(jerseyDTO))
+                .contentType(MediaType.APPLICATION_JSON))
+                                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.team", is("Spurs")))
+                .andExpect(jsonPath("$.size", is("L")))
+                .andExpect(jsonPath("$.color", is("White")));
+    }
+
+    private static String asJsonString(final Object obj) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            final String jsonContent = mapper.writeValueAsString(obj);
+            return jsonContent;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
