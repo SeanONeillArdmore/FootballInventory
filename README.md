@@ -19,7 +19,7 @@ From Project Root Directory. (commandline at root level, where pom.xml exists)
 - Build app using maven: `mvn clean -B package`. Output of this will be a Fat executable jar.
 - Run app as jar, execute: `java -jar target/app.jar` 
 - App available at localhost:8080
-- Swagger avaiable at : http://localhost:8080/swagger-ui/git clone https://github.com/SeanONeillArdmore/FootballInventory.git
+- Swagger avaiable at : http://localhost:8080/swagger-ui/
 
 ### Run as docker image
 
