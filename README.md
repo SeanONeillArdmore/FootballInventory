@@ -3,9 +3,7 @@ Simple Inventory app for a Football Shop to track Jerseys in stock
 the Application has endpoints for GET/POST/PUT/DELETE 
 
 ## Getting started
-* git clone https://github.com/SeanONeillArdmore/FootballInventory.git
-* from command line execute: `mvn clean package` 
-* navigate to http://localhost:8080/swagger-ui/
+git clone https://github.com/SeanONeillArdmore/FootballInventory.git
 
 ##  Architecture
 A Microservice based application using RESTful APIs
@@ -21,6 +19,7 @@ From Project Root Directory. (commandline at root level, where pom.xml exists)
 - Build app using maven: `mvn clean -B package`. Output of this will be a Fat executable jar.
 - Run app as jar, execute: `java -jar target/app.jar` 
 - App available at localhost:8080
+- Swagger avaiable at : http://localhost:8080/swagger-ui/git clone https://github.com/SeanONeillArdmore/FootballInventory.git
 
 ### Run as docker image
 
@@ -28,6 +27,7 @@ From Project Root Directory. (commandline at root level, where pom.xml exists)
 - Build Docker Image: `docker build -t local/football-inventory -f docker/Dockerfile .`
 - Run app as docker image, execute: `docker run --rm -p 9090:8080 -t local/football-inventory` 
 - App available at localhost:9090 (or whatever host port specified.)
+- http://localhost:9090/swagger-ui/#/football-inventory-controller/getInventoryUsingGET
 
 ### GitHub Action workflow 
 - Workflow that builds and tests every pull request to the repository
