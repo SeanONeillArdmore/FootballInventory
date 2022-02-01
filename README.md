@@ -7,12 +7,20 @@ the Application has endpoints for GET/POST/PUT/DELETE
 * from command line execute: `mvn clean package` 
 * navigate to http://localhost:8080/swagger-ui/
 
-## Docker alternative
-
 ##  Architecture
 A Microservice based application using RESTful APIs
 
 Spring Boot application using in-memory h2 database
+
+## Build Run as Java App.
+
+From Project Root Directory.
+
+### Run as java app
+
+- Build app using maven: `mvn clean -B package`. Output of this will be a Fat executable jar.
+- Run app as jar, execute: `java -jar target/app.jar` 
+- App available at localhost:8080
 
 ## API Endpoints 
 
