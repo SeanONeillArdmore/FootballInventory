@@ -14,7 +14,7 @@ Spring Boot application using in-memory h2 database
 
 ### Build as Java App
 
-From Project Root Directory.
+From Project Root Directory. (commandline at root level, where pom.xml exists)
 
 ### Run as java app
 
