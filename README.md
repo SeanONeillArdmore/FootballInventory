@@ -12,7 +12,7 @@ A Microservice based application using RESTful APIs
 
 Spring Boot application using in-memory h2 database
 
-## Build Run as Java App.
+### Build as Java App
 
 From Project Root Directory.
 
