@@ -22,6 +22,13 @@ From Project Root Directory.
 - Run app as jar, execute: `java -jar target/app.jar` 
 - App available at localhost:8080
 
+### Run as docker image
+
+- Build app using maven: `mvn clean -B package`. Output of this will be a Fat executable jar.
+- Build Docker Image: `docker build -t local/football-inventory -f docker/Dockerfile .`
+- Run app as docker image, execute: `docker run --rm -p 9090:8080 -t local/football-inventory` 
+- App available at localhost:9090 (or whatever host port specified.)
+
 ## API Endpoints 
 
 ## Get All Jerseys
