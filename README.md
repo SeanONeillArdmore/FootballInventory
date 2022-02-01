@@ -31,6 +31,9 @@ From Project Root Directory.
 
 ### GitHub Action workflow 
 - Workflow that builds and tests every pull request to the repository
+- 
+![Screenshot 2022-02-01 at 17 44 47](https://user-images.githubusercontent.com/98542188/152022178-f63fa824-53ae-46f0-a8af-41afa0b4fae0.png)
+
 
 ## API Endpoints 
 
