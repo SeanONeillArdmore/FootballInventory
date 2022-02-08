@@ -25,6 +25,8 @@ public class Jersey {
 
     private String color;
 
+    private Integer year;
+
     public Jersey() {
         this.id = UUID.randomUUID().toString();
     }

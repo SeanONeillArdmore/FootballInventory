@@ -23,6 +23,7 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
         jerseyEntity.setColor(jerseyDTO.getColor());
         jerseyEntity.setSize(jerseyDTO.getSize());
         jerseyEntity.setTeam(jerseyDTO.getTeam());
+        jerseyEntity.setYear(jerseyDTO.getYear());
         Jersey created = jerseyRepository.save(jerseyEntity);
         jerseyDTO.setJerseyId(created.getId());
         return jerseyDTO;
@@ -36,6 +37,7 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
         jerseyEntity.setColor(jerseyDTO.getColor());
         jerseyEntity.setTeam(jerseyDTO.getTeam());
         jerseyEntity.setSize(jerseyDTO.getSize());
+        jerseyEntity.setYear(jerseyDTO.getYear());
         jerseyRepository.save(jerseyEntity);
         return jerseyDTO;
     }
@@ -50,7 +52,7 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
     public List<JerseyDTO> findAllJerseys() {
         List<Jersey> jerseyEntities = jerseyRepository.findAll();
         List<JerseyDTO> jerseyDTOS = jerseyEntities.stream().map(
-                i -> new JerseyDTO(i.getId(), i.getTeam(), i.getSize(), i.getColor())
+                i -> new JerseyDTO(i.getId(), i.getTeam(), i.getSize(), i.getColor(), i.getYear())
         ).collect(Collectors.toList());
         return jerseyDTOS;
     }
@@ -62,6 +64,15 @@ public class FootballFootballInventoryServiceImpl implements FootballInventorySe
             throw  new JerseyNotFoundException("Jersey Not found : " + id);
         }
         Jersey jersey = optional.get();
-        return new JerseyDTO(jersey.getId(), jersey.getTeam(), jersey.getSize(), jersey.getColor());
+        return new JerseyDTO(jersey.getId(), jersey.getTeam(), jersey.getSize(), jersey.getColor(), jersey.getYear());
+    }
+
+    @Override
+    public List<JerseyDTO> findJerseysByYear(String team, Integer year) {
+        List<Jersey> jerseyEntities = jerseyRepository.findByTeamStartingWithAndYear(team, year);
+        List<JerseyDTO> jerseyDTOS = jerseyEntities.stream().map(
+                i -> new JerseyDTO(i.getId(), i.getTeam(), i.getSize(), i.getColor(), i.getYear())
+        ).collect(Collectors.toList());
+        return jerseyDTOS;
     }
 }

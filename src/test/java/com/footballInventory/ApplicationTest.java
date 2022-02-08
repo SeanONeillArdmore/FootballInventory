@@ -43,19 +43,19 @@ public class ApplicationTest {
         Jersey saved = jerseyRepository.save(jersey);
 
         // Get Added Jersey
-        mvc.perform(get("/football-api/jersey/" + saved.getId())
+        mvc.perform(get("/football-stock-api/jersey/" + saved.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.team", is("NY Cosmos")))
                 .andExpect(jsonPath("$.size", is("XS")))
                 .andExpect(jsonPath("$.color", is("White")));
         // Delete Jersey
-        mvc.perform(delete("/football-api/jersey/" + saved.getId())
+        mvc.perform(delete("/football-stock-api/jersey/" + saved.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Check is deleted
-        mvc.perform(get("/football-api/jersey/" + saved.getId())
+        mvc.perform(get("/football-stock-api/jersey/" + saved.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -75,12 +75,31 @@ public class ApplicationTest {
         jerseyDTO.setSize("L");
         jerseyDTO.setColor("White");
 
-        mvc.perform(put("/football-api/jersey/" + saved.getId()).content(asJsonString(jerseyDTO))
+        mvc.perform(put("/football-stock-api/jersey/" + saved.getId()).content(asJsonString(jerseyDTO))
                 .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.team", is("Spurs")))
                 .andExpect(jsonPath("$.size", is("L")))
                 .andExpect(jsonPath("$.color", is("White")));
+    }
+
+    @Test
+    public void test_search_for_record() throws Exception {
+        Jersey jersey = new Jersey();
+        jersey.setId(UUID.randomUUID().toString());
+        jersey.setTeam("Milan");
+        jersey.setSize("M");
+        jersey.setColor("WhiteRed");
+        jersey.setYear(1992);
+        Jersey saved = jerseyRepository.save(jersey);
+
+        mvc.perform(get("/football-sales-api/jersey/Milan/1992")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].team", is("Milan")))
+                .andExpect(jsonPath("$.[0].size", is("M")))
+                .andExpect(jsonPath("$.[0].year", is(1992)))
+                .andExpect(jsonPath("$.[0].color", is("WhiteRed")));
     }
 
     private static String asJsonString(final Object obj) {

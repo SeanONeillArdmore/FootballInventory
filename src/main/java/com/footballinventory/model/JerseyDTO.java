@@ -21,4 +21,7 @@ public class JerseyDTO {
 
     @ApiModelProperty(notes = "Jersey Color",name="color",required=true,value="Jersey color")
     private String color;
+
+    @ApiModelProperty(notes = "Jersey year",name="year",required=true,value="Jersey year")
+    private Integer year;
 }

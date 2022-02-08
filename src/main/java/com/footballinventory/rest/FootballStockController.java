@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Football Inventory API", description = "Football Shop Jersey stock tracker")
+@Tag(name = "Football Stock API", description = "Football Shop Jersey stock tracker")
 @RestController
-@RequestMapping(path = "/football-api")
-public class FootballInventoryController {
+@RequestMapping(path = "/football-stock-api")
+public class FootballStockController {
 
     private final FootballInventoryService inventoryService;
 

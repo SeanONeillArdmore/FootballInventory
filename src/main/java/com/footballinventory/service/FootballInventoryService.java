@@ -11,4 +11,5 @@ public interface FootballInventoryService {
     void deleteJersey(String id);
     JerseyDTO findJerseyById(String id);
     List<JerseyDTO> findAllJerseys();
+    List<JerseyDTO> findJerseysByYear(String team, Integer year);
 }
